@@ -73,10 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _swap(){
+    setState(() {
+      _isReversed = !_isReversed;
+    });
+  }
+
   void _resetCounter() {
     setState(() {
       _counter = 0;
     });
+    _swap();
   }
 
   @override
@@ -95,10 +102,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       onPressed: _decrementCounter,
     );
-    List<Widget> _buttons = <Widget>[incrementButton, decrementButton];
+    List<Widget> _buttons = <Widget>[decrementButton, incrementButton];
     if (_isReversed) {
       _buttons = _buttons.reversed.toList();
     }
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -142,10 +150,12 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-/*            Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                RaisedButton(
+                incrementButton,
+               decrementButton,
+               /* RaisedButton(
                   child: Text(
                     "Decrement",
                     style: TextStyle(color: Colors.white),
@@ -159,9 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   color: Colors.green,
                   onPressed: _incrementCounter,
-                ),
+                ),*/ // Old RaisedButtons
               ],
-            ),*/
+            ),
           ],
         ),
       ),
@@ -169,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _resetCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
